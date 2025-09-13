@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Interactive Portfolio</title>
     <style>
-        * {
+     
+      * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            color: white;
+            color: #f8f9fa;
             overflow-x: hidden;
             min-height: 100vh;
+            line-height: 1.6;
         }
 
         /* Animated Background */
@@ -133,6 +136,7 @@
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 25px;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
@@ -180,6 +184,7 @@
             text-align: center;
             position: relative;
             z-index: 2;
+            padding: 0 2rem;
         }
 
         .hero-content {
@@ -188,28 +193,30 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /* Start hidden for typing effect */
-    opacity: 0.9;
-    text-shadow: none;
-        }
-
-        @keyframes textGlow {
-            from { filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.5)); }
-            to { filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8)); }
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
         }
 
         .hero p {
             font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.8s;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-buttons {
@@ -217,8 +224,20 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 1.1s;
         }
 
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Styles */
         .btn {
             padding: 12px 30px;
             border: none;
@@ -228,31 +247,37 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            font-weight: 600;
         }
 
         .btn-primary {
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #e74c3c, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+            border: 2px solid rgba(78, 205, 196, 0.7);
         }
 
         .btn-secondary:hover {
-            background: rgba(78, 205, 196, 0.1);
+            background: rgba(78, 205, 196, 0.15);
             border-color: #4ecdc4;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.2);
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.5);
         }
 
         .scroll-indicator {
@@ -262,6 +287,8 @@
             transform: translateX(-50%);
             animation: bounce 2s infinite;
             cursor: pointer;
+            opacity: 0;
+            animation: bounce 2s infinite 1.5s;
         }
 
         @keyframes bounce {
@@ -280,13 +307,27 @@
         }
 
         .section-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
         }
 
         /* About Section */
@@ -313,17 +354,18 @@
             margin: 0 auto;
             animation: profileFloat 3s ease-in-out infinite;
             transition: all 0.3s ease;
-            
+            overflow: hidden;
         }
+        
         .profile-img {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                object-fit: cover;
-          }
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
         .profile-circle:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
@@ -344,6 +386,7 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
         .skill-bar {
@@ -361,155 +404,163 @@
             transition: width 2s ease;
             width: 0%;
         }
+        
+        /* Button in education section */
         .btn-view {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  margin-top: 1rem;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
 
-.btn-view:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
+        .btn-view:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #e74c3c, #3db9a8);
+        }
 
         /* Fade-in animation */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
-  animation-delay: 0.3s;
-}
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+        /* Hover effect for cards */
+        .education-item, .certificate-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-/* Hover effect for cards */
-.education-item, .certificate-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .education-item:hover, .certificate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
-.education-item:hover, .certificate-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+        /* Certificate cards */
+        .certificate-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+            padding: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
 
-/* Optional: Add subtle gradient background for cards */
-.certificate-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
-  padding: 1rem;
-  border-radius: 15px;
-}
-/* Modal Styles */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-}
+        .modal iframe {
+            width: 80%;
+            height: 80%;
+            border-radius: 10px;
+            background: white;
+        }
 
-.modal iframe {
-  width: 80%;
-  height: 80%;
-  border-radius: 10px;
-  background: white;
-}
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+        }
 
-.modal .close {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  color: #fff;
-  font-size: 40px;
-  cursor: pointer;
-}
+        /* View Button Style */
+        .view-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
 
-/* Button Style */
-.view-btn {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+        .view-btn:hover {
+            background: linear-gradient(45deg, #3db9a8, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+        
+        /* Experience Section */
+        #experience {
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
 
-.view-btn:hover {
-  background: #45a049;
-}
-/* Experience Section */
-#experience {
-  padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.02);
-}
+        .experience-container {
+            display: grid;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-.experience-container {
-  display: grid;
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(15px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.experience-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(15px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
 
-.experience-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
+        .experience-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #fff;
+        }
 
-.experience-card h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #fff;
-}
+        .experience-company {
+            display: block;
+            font-size: 1rem;
+            color: #4ecdc4;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
 
-.experience-company {
-  display: block;
-  font-size: 1rem;
-  color: #ccc;
-  margin-top: 0.5rem;
-}
+        .experience-date {
+            display: block;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
 
-.experience-date {
-  display: block;
-  font-size: 0.9rem;
-  color: #aaa;
-  margin-bottom: 1rem;
-}
+        .experience-card ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: #eee;
+            line-height: 1.6;
+        }
 
-.experience-card ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  color: #eee;
-  line-height: 1.6;
-}
-
-
-
+        .experience-card li {
+            margin-bottom: 0.5rem;
+        }
 
         /* Projects Section */
         .projects-grid {
@@ -528,6 +579,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card::before {
@@ -567,7 +621,8 @@
 
         .project-description {
             margin-bottom: 1.5rem;
-            opacity: 0.8;
+            opacity: 0.9;
+            flex-grow: 1;
         }
 
         .tech-tags {
@@ -584,16 +639,19 @@
             border-radius: 15px;
             font-size: 0.8rem;
             transition: all 0.3s ease;
+            border: 1px solid rgba(78, 205, 196, 0.3);
         }
 
         .tech-tag:hover {
             background: rgba(78, 205, 196, 0.4);
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.2);
         }
 
         .project-links {
             display: flex;
             gap: 1rem;
+            margin-top: auto;
         }
 
         .project-link {
@@ -606,12 +664,15 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
         }
 
         .project-link:hover {
             background: #4ecdc4;
             color: #0c0c0c;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
         }
 
         /* Contact Section */
@@ -622,7 +683,10 @@
         .contact-description {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            opacity: 0.8;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .social-links {
@@ -642,13 +706,13 @@
             color: white;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .social-link:hover {
             transform: translateY(-5px);
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-color: white;
+            border-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
@@ -659,6 +723,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(20px);
+            margin-top: 4rem;
         }
 
         /* Mobile Responsive */
@@ -691,6 +756,14 @@
 
             .social-links {
                 flex-wrap: wrap;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding-top: 4rem;
             }
         }
     </style>
@@ -731,11 +804,8 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <h1>Hello World!</h1>
-            <p>I’m an IT professional passionate about software development, AI, and emerging technologies.</p>
-            <div class="cta-buttons">
-                <button class="btn btn-primary">View My Work</button>
-            </div>
+            <h1>Motlatsi Moropa</h1>
+            <p>Aspiring AI/ML Engineer | IT Graduate | Builder of Intelligent, Data-Driven Solutions</p>
         </div>
         <div class="scroll-indicator">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -758,8 +828,7 @@
 
             <div class="about-text">
                 <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
-                   I’m an adaptable IT professional with a strong foundation in software development and database management, now focusing on AI and Machine Learning. Skilled in Java, C++, PHP, SQL, and JavaScript, I enjoy building data-driven solutions that merge emerging technologies like AI, Blockchain, and Automation with real-world applications. Through projects such as an SRC Voting System and JoBus AI, I’ve gained experience in predictive analytics, automation, and system integration, while honing my problem-solving and leadership skills.
-                </p>
+I’m an adaptable IT professional with a Diploma in Software Development, now specializing in Artificial Intelligence and Machine Learning. Skilled in programming (Java, C++, PHP, SQL, JavaScript) and experienced in building intelligent, data-driven solutions. My projects, including an SRC Voting System and JoBus AI, highlight my ability to apply predictive analytics, automation, and system integration to solve real-world challenges. Passionate about merging emerging technologies—AI, Blockchain, and Automation—into practical applications, while bringing strong problem-solving, adaptability, and leadership to every project.                </p>
                 <div class="skills">
                     <div class="skill-item">
                         <div class="skill-header">
@@ -800,29 +869,16 @@
   <div class="experience-container">
 
     <div class="experience-card">
-      <h3>Operations Manager (Volunteer)</h3>
-      <span class="experience-company">Methodist Women’s Fellowship</span>
-      <span class="experience-date">2022 – Present</span>
+      <h3>Digital Associate Intern</h3>
+      <span class="experience-company">CAPACITI</span>
+      <span class="experience-date">July 2025 – Present</span>
       <ul>
-        <li>Led fundraising projects and community initiatives supporting retired ministers and families.</li>
-        <li>Managed bottle cap recycling drive funding wheelchairs for those in need.</li>
-        <li>Oversaw Christmas food shopping initiatives and voucher distribution to beneficiaries.</li>
-        <li>Organized district-wide fundraiser, successfully engaging multiple stakeholders.</li>
+        <li>Built and deployed no-code chatbots and AI-powered tools to solve practical problems.</li>
+        <li>Developed user-focused digital applications and assisted in optimizing backend systems.</li>
+        <li>Collaborated with teams to design, test, and refine digital solutions.</li>
+        <li>Earned certificates for AI bootcamp and related digital skills.</li>
       </ul>
     </div>
-
-    <div class="experience-card">
-      <h3>SRC Role</h3>
-      <span class="experience-company">[Your College Name]</span>
-      <span class="experience-date">2023 – 2024</span>
-      <ul>
-        <li>Represented student body interests as part of the Student Representative Council.</li>
-        <li>Coordinated events and initiatives to foster community engagement.</li>
-        <li>Supported implementation of student voting system project as part of IT studies.</li>
-      </ul>
-    </div>
-
-    <!-- Add more experiences as needed -->
   </div>
 </section>
 
@@ -834,7 +890,7 @@
         <div class="education-item fade-in" style="animation-delay: 0.3s;">
             <h3>Diploma in Information Technology</h3>
             <p>Richfield Graduate Institution of Technology, 2022 - 2024</p>
-            <a href="certificates/qualification.pdf" class="btn-view" target="_blank" rel="noopener noreferrer">
+            <a href="certificates/Qualification.pdf" class="btn-view" target="_blank" rel="noopener noreferrer">
     View Qualification
   </a>
         </div>
@@ -1032,7 +1088,7 @@
       Download my latest resume and AI/ML-tailored career materials.
     </p>
     <div class="cta-buttons">
-      <a href="resume.pdf" class="btn btn-primary" download>Download Resume</a>
+      <a href="certificates/Motlatsi.Moropa 2025 Candidate cv.pdf" class="btn btn-primary" download>Download Resume</a>
     </div>
   </div>
 </section>
