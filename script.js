@@ -174,24 +174,54 @@
             }
         });
 
-        // Typing effect for hero text
-        const heroTitle = document.querySelector('.hero h1');
-        const originalText = heroTitle.textContent;
-        heroTitle.textContent = '';
-        
-        let i = 0;
-        const typeWriter = () => {
-            if (i < originalText.length) {
-                heroTitle.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        };
-        
-        // Start typing effect after page load
-        window.addEventListener('load', () => {
-            setTimeout(typeWriter, 500);
-        });
+     const heroTitle = document.querySelector('.hero h1');
+const originalText = heroTitle.textContent;
+heroTitle.textContent = '';
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
+
+let iteration = 0;
+const maxIterations = 10; // how many random cycles before revealing each letter
+let currentIndex = 0;
+
+function hackerType() {
+  if (currentIndex < originalText.length) {
+    let displayText = '';
+
+    for (let i = 0; i < originalText.length; i++) {
+      if (i < currentIndex) {
+        // letters already revealed
+        displayText += originalText[i];
+      } else if (i === currentIndex) {
+        // current letter cycles through random chars
+        displayText += letters.charAt(Math.floor(Math.random() * letters.length));
+      } else {
+        // letters not yet revealed show space or empty
+        displayText += ' ';
+      }
+    }
+
+    heroTitle.textContent = displayText;
+
+    iteration++;
+
+    if (iteration > maxIterations) {
+      // reveal the actual letter and move to next
+      currentIndex++;
+      iteration = 0;
+    }
+
+    setTimeout(hackerType, 50); // speed of random letter cycling
+  } else {
+    // fully revealed text
+    heroTitle.textContent = originalText;
+  }
+}
+
+// start effect after page load
+window.addEventListener('load', () => {
+  setTimeout(hackerType, 500);
+});
 
         // Add floating animation to social links
         const socialLinks = document.querySelectorAll('.social-link');
