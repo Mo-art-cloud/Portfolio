@@ -176,7 +176,7 @@
 
      const heroTitle = document.querySelector('.hero h1');
 const originalText = heroTitle.textContent;
-
+heroTitle.textContent = '';
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
 
@@ -184,24 +184,23 @@ let iteration = 0;
 const maxIterations = 10; // how many random cycles before revealing each letter
 let currentIndex = 0;
 
-const cipherSymbols = "░▒▓✦✧◆◇";
-
 function hackerType() {
   if (currentIndex < originalText.length) {
     let displayText = '';
 
     for (let i = 0; i < originalText.length; i++) {
       if (i < currentIndex) {
-        displayText += originalText[i];
+        displayText += originalText[i]; // revealed
       } else if (i === currentIndex) {
+        // cycle random chars for current letter
         displayText += letters.charAt(Math.floor(Math.random() * letters.length));
       } else {
-        // unrevealed letters = encrypted symbols
-        displayText += cipherSymbols.charAt(Math.floor(Math.random() * cipherSymbols.length));
+        // unrevealed letters shown ghosted
+        displayText += `<span style="opacity:0.2">${originalText[i]}</span>`;
       }
     }
 
-    heroTitle.textContent = displayText;
+    heroTitle.innerHTML = displayText;
 
     iteration++;
 
@@ -215,8 +214,6 @@ function hackerType() {
     heroTitle.textContent = originalText;
   }
 }
-// Start once
-hackerType();
 
 
 // start effect after page load
@@ -314,7 +311,32 @@ window.addEventListener('load', () => {
         // Create particles periodically
         setInterval(createParticle, 2000);
 
-    
+        // Add glitch effect to title on hover
+        const title = document.querySelector('.hero h1');
+        const originalTitle = title.textContent;
+        
+        title.addEventListener('mouseenter', () => {
+            let iterations = 0;
+            const glitchInterval = setInterval(() => {
+                title.textContent = originalTitle
+                    .split('')
+                    .map((char, index) => {
+                        if (index < iterations) {
+                            return originalTitle[index];
+                        }
+                        return String.fromCharCode(33 + Math.floor(Math.random() * 94));
+                    })
+                    .join('');
+                
+                iterations += 1/3;
+                
+                if (iterations >= originalTitle.length) {
+                    clearInterval(glitchInterval);
+                    title.textContent = originalTitle;
+                }
+            }, 30);
+        });
+
         console.log('🎉 Portfolio loaded successfully!');
 
         function openCertificate(filePath) {
