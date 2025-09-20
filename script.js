@@ -321,31 +321,7 @@ window.addEventListener('load', () => {
         // Create particles periodically
         setInterval(createParticle, 2000);
 
-        // Add glitch effect to title on hover
-        const title = document.querySelector('.hero h1');
-        const originalTitle = title.textContent;
-        
-        title.addEventListener('mouseenter', () => {
-            let iterations = 0;
-            const glitchInterval = setInterval(() => {
-                title.textContent = originalTitle
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iterations) {
-                            return originalTitle[index];
-                        }
-                        return String.fromCharCode(33 + Math.floor(Math.random() * 94));
-                    })
-                    .join('');
-                
-                iterations += 1/3;
-                
-                if (iterations >= originalTitle.length) {
-                    clearInterval(glitchInterval);
-                    title.textContent = originalTitle;
-                }
-            }, 30);
-        });
+    
 
         console.log('🎉 Portfolio loaded successfully!');
 
