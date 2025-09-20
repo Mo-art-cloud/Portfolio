@@ -176,7 +176,7 @@
 const heroTitle = document.querySelector('.hero h1');
 const originalText = heroTitle.textContent; 
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
+
 const cipherSymbols = "░▒▓✦✧◆◇";
 
 let iteration = 0;
