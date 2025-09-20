@@ -173,15 +173,14 @@
                 navLinks.style.backdropFilter = 'blur(20px)';
             }
         });
-
-     const heroTitle = document.querySelector('.hero h1');
-const originalText = heroTitle.textContent;
-heroTitle.textContent = '';
+const heroTitle = document.querySelector('.hero h1');
+const originalText = heroTitle.textContent; 
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
+const cipherSymbols = "░▒▓✦✧◆◇";
 
 let iteration = 0;
-const maxIterations = 10; // how many random cycles before revealing each letter
+const maxIterations = 10; 
 let currentIndex = 0;
 
 function hackerType() {
@@ -190,17 +189,15 @@ function hackerType() {
 
     for (let i = 0; i < originalText.length; i++) {
       if (i < currentIndex) {
-        displayText += originalText[i]; // revealed
+        displayText += originalText[i];
       } else if (i === currentIndex) {
-        // cycle random chars for current letter
         displayText += letters.charAt(Math.floor(Math.random() * letters.length));
       } else {
-        // unrevealed letters shown ghosted
-        displayText += `<span style="opacity:0.2">${originalText[i]}</span>`;
+        displayText += cipherSymbols.charAt(Math.floor(Math.random() * cipherSymbols.length));
       }
     }
 
-    heroTitle.innerHTML = displayText;
+    heroTitle.textContent = displayText;
 
     iteration++;
 
@@ -211,9 +208,17 @@ function hackerType() {
 
     setTimeout(hackerType, 50);
   } else {
-    heroTitle.textContent = originalText;
+    heroTitle.textContent = originalText; 
   }
 }
+
+// Start once
+hackerType();
+
+// start effect after page load
+window.addEventListener('load', () => {
+  setTimeout(hackerType, 500);
+});
 
 
 // start effect after page load
