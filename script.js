@@ -174,9 +174,8 @@
             }
         });
 const heroTitle = document.querySelector('.hero h1');
-const originalText = heroTitle.textContent; 
+const originalText = heroTitle.textContent;
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
 const cipherSymbols = "░▒▓✦✧◆◇";
 
 let iteration = 0;
@@ -189,10 +188,13 @@ function hackerType() {
 
     for (let i = 0; i < originalText.length; i++) {
       if (i < currentIndex) {
+        // letters already revealed
         displayText += originalText[i];
       } else if (i === currentIndex) {
-        displayText += letters.charAt(Math.floor(Math.random() * letters.length));
+        // current letter cycles through cipher symbols only
+        displayText += cipherSymbols.charAt(Math.floor(Math.random() * cipherSymbols.length));
       } else {
+        // letters not yet revealed show cipher symbols as well
         displayText += cipherSymbols.charAt(Math.floor(Math.random() * cipherSymbols.length));
       }
     }
@@ -212,8 +214,11 @@ function hackerType() {
   }
 }
 
-// Start once
-hackerType();
+// Start the effect after page load
+window.addEventListener('load', () => {
+  setTimeout(hackerType, 500);
+});
+
 
 // start effect after page load
 window.addEventListener('load', () => {
