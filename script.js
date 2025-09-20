@@ -174,16 +174,17 @@
             }
         });
 
-    const heroTitle = document.querySelector('.hero h1');
-const originalText = heroTitle.textContent; // Grab the text from HTML
-// ❌ don't reset it to ''
+     const heroTitle = document.querySelector('.hero h1');
+const originalText = heroTitle.textContent;
+
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
-const cipherSymbols = "░▒▓✦✧◆◇";
 
 let iteration = 0;
-const maxIterations = 10; 
+const maxIterations = 10; // how many random cycles before revealing each letter
 let currentIndex = 0;
+
+const cipherSymbols = "░▒▓✦✧◆◇";
 
 function hackerType() {
   if (currentIndex < originalText.length) {
@@ -195,6 +196,7 @@ function hackerType() {
       } else if (i === currentIndex) {
         displayText += letters.charAt(Math.floor(Math.random() * letters.length));
       } else {
+        // unrevealed letters = encrypted symbols
         displayText += cipherSymbols.charAt(Math.floor(Math.random() * cipherSymbols.length));
       }
     }
@@ -210,10 +212,9 @@ function hackerType() {
 
     setTimeout(hackerType, 50);
   } else {
-    heroTitle.textContent = originalText; // ✅ stays there permanently
+    heroTitle.textContent = originalText;
   }
 }
-
 // Start once
 hackerType();
 
@@ -313,32 +314,7 @@ window.addEventListener('load', () => {
         // Create particles periodically
         setInterval(createParticle, 2000);
 
-        // Add glitch effect to title on hover
-        const title = document.querySelector('.hero h1');
-        const originalTitle = title.textContent;
-        
-        title.addEventListener('mouseenter', () => {
-            let iterations = 0;
-            const glitchInterval = setInterval(() => {
-                title.textContent = originalTitle
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iterations) {
-                            return originalTitle[index];
-                        }
-                        return String.fromCharCode(33 + Math.floor(Math.random() * 94));
-                    })
-                    .join('');
-                
-                iterations += 1/3;
-                
-                if (iterations >= originalTitle.length) {
-                    clearInterval(glitchInterval);
-                    title.textContent = originalTitle;
-                }
-            }, 30);
-        });
-
+    
         console.log('🎉 Portfolio loaded successfully!');
 
         function openCertificate(filePath) {
