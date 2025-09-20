@@ -449,42 +449,29 @@
         }
 
         /* Certificate cards */
-        .certificate-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
-            padding: 1.5rem;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-        }
+        .certificates-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 1rem;
+  scroll-snap-type: x mandatory;
+}
 
-        .modal iframe {
-            width: 80%;
-            height: 80%;
-            border-radius: 10px;
-            background: white;
-        }
-
-        .modal .close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-        }
+.certificate-frame {
+  flex: 0 0 80%;
+  height: 500px;
+  border-radius: 10px;
+  background: white;
+  scroll-snap-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+.certificates-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.certificates-scroll::-webkit-scrollbar-thumb {
+  background: #4ecdc4;
+  border-radius: 4px;
+}
 
         /* View Button Style */
         .view-btn {
