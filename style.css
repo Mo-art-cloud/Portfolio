@@ -197,6 +197,18 @@
             animation: fadeInUp 1s ease forwards;
             animation-delay: 0.5s;
         }
+        .hero h1::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+  margin-left: 2px;
+  color: #4ecdc4;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 
         .hero p {
             font-size: 1.3rem;
